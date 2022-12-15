@@ -1,0 +1,189 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp7
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int liczbakomputer = 0;
+            int liczbagracz = 0;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("Siema!!!");
+            Console.WriteLine("Zaczynamy");
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+
+
+            Console.ResetColor();
+
+
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Pomyśl liczbę od 1 do 1000");
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+            Console.ReadKey();
+
+            Console.ResetColor();
+            int min = 1;
+            int max = 1000;
+            int conterPC = 0;
+            //int counter = 0;
+            while (min < max)
+            {
+                int med = (min + max) / 2;
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("Czy pomyślana liczba jest większa od " + med + " t/n");
+                Console.WriteLine("-------------------------------------------------------------------------------------");
+                Console.ResetColor();
+                conterPC++;
+
+                char c = Console.ReadLine()[0];
+                if (c == 't') { min = med + 1; }
+                else
+                {
+                    max = med;
+                }
+                if (min == max)
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Szukana liczba to " + min);
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.ResetColor();
+
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    Console.WriteLine("Zgadłem w " + conterPC + " próbach");
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+
+                    liczbakomputer = conterPC;
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    break;
+                }
+                /*min++;
+                Console.WriteLine("wartość min = " + min);*/
+            }
+
+
+            const int MIN_VALUE = 1;
+            const int MAX_VALUE = 1000;
+            const int MAX_COUNTER = 20;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("Wylosowałem liczbę od " + MIN_VALUE + " do " + MAX_VALUE + ", spróbuj ją zgadanać:");
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+            Console.ResetColor();
+
+            Random rnd = new Random();
+            int liczba = rnd.Next(MIN_VALUE, MAX_VALUE);
+            //Console.WriteLine("Sekretna liczba to " + liczba);
+
+            int counter = 1;
+
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Podaj liczbę, a ja powiem czy to jest ta sama o którą mi chodzi.");
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+            Console.WriteLine("Masz " + MAX_COUNTER + " prób");
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+            Console.ResetColor();
+
+            while (true)
+
+            {
+
+                counter++;
+                /*Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Podaj liczbę, a ja powiem czy to jest ta sama o którą mi chodzi.");
+                Console.WriteLine("-------------------------------------------------------------------------------------");
+                Console.WriteLine("Masz " + MAX_COUNTER + " prób");
+                Console.WriteLine("-------------------------------------------------------------------------------------");
+                Console.ResetColor();*/
+                string napisGracza = Console.ReadLine();
+                int liczbaGracza;
+                try
+                {
+                    liczbaGracza = Int32.Parse(napisGracza);
+                    //Console.WriteLine();
+                }
+                catch (FormatException)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine($"To nie jest liczba '{napisGracza}' próbuj dalej");
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.ResetColor();
+                    continue;
+                }
+                if (liczbaGracza == liczba)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Zgadłeś/aś za " + counter + " podejściem");
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    liczbagracz = counter;
+                    Console.ResetColor();
+                    break;
+                }
+                if (liczbaGracza > liczba)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("Liczba jest mniejsza, próbuj dalej:");
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.ResetColor();
+                }
+                if (liczbaGracza < liczba)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("Liczba jest większa, próbuj dalej:");
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.ResetColor();
+                }
+                if (counter > MAX_COUNTER)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("Sorry wyczerpałeś limit prób.");
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.ResetColor();
+                    liczbagracz = MAX_COUNTER;
+                    break;
+                }
+            }
+
+            if (liczbagracz < liczbakomputer)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("-------------------------------------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------------------------------------");
+                Console.WriteLine("Gratulacje");
+                Console.WriteLine("Ty zgadłeś/aś w " + liczbagracz + " próbach");
+                Console.WriteLine("Komputer zgadł w " + liczbakomputer + " próbach");
+            }
+            else
+            {
+                if (liczbagracz > liczbakomputer)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.WriteLine("Niegratulacje");
+                    Console.WriteLine("Ty zgadłeś/aś w " + liczbagracz + " próbach");
+                    Console.WriteLine("Komputer zgadł w " + liczbakomputer + " próbach");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.WriteLine("-------------------------------------------------------------------------------------");
+                    Console.WriteLine("Mamy remis");
+                    Console.WriteLine("Ty zgadłeś/aś w " + liczbagracz + " próbach");
+                    Console.WriteLine("Komputer zgadł w " + liczbakomputer + " próbach");
+                    Console.WriteLine("*************************************************************************************");
+                }
+            }
+            Console.ReadKey();
+
+        }
+
+    }
+}
